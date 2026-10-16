@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#0b0e0c">
+<title>Postime</title>
+
+<style>
+:root {
+  color-scheme: dark;
+  --bg: #0b0e0c;
+  --card: #141a16;
+  --border: #29332b;
+  --green: #b4f278;
+  --text: #f1f5f0;
+  --muted: #929c92;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 26px 18px 40px;
+  background: var(--bg);
+  color: var(--text);
+  font-family: system-ui, sans-serif;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.logo {
+  font-size: 27px;
+  font-weight: 750;
+  letter-spacing: -1.5px;
+}
+
+.logo span {
+  color: var(--green);
+}
+
+.status {
+  font-size: 11px;
+  color: var(--green);
+  border: 1px solid #405537;
+  border-radius: 20px;
+  padding: 7px 10px;
+}
+
+.subtitle {
+  color: var(--muted);
+  font-size: 13px;
+  margin-top: 5px;
+}
+
+.section-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 29px 0 13px;
+}
+
+h2 {
+  font-size: 17px;
+  margin: 0;
+  font-weight: 650;
+}
+
+.label {
+  font-size: 10px;
+  letter-spacing: 1.5px;
+  color: var(--muted);
+  margin-bottom: 12px;
+}
+
+.clocks {
+  display: grid;
+  gap: 10px;
+}
+
+.card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 17px;
+  padding: 17px;
+}
+
+.clock-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.city {
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.country {
+  font-size: 11px;
+  color: var(--muted);
+  margin-top: 3px;
+}
+
+.offset {
+  color: var(--green);
+  font-size: 11px;
+  background: #253321;
+  padding: 5px 8px;
+  border-radius: 7px;
+}
+
+.time {
+  font-size: 34px;
+  font-weight: 650;
+  letter-spacing: -1px;
+  margin-top: 13px;
+  font-variant-numeric: tabular-nums;
+}
+
+.date {
+  color: var(--muted);
+  font-size: 12px;
+  margin-top: 3px;
+  text-transform: capitalize;
+}
+
+.day {
+  display: grid;
+  grid-template-columns: 95px 1fr;
+  gap: 8px;
+  align-items: center;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.day:last-child {
+  border-bottom: 0;
+  padding-bottom: 2px;
+}
+
+.day-name {
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.hours {
+  text-align: right;
+  font-size: 12px;
+  color: var(--green);
+}
+
+.hours small {
+  display: block;
+  font-size: 10px;
+  color: var(--muted);
+  margin-top: 4px;
+}
+
+.muted-hours {
+  color: var(--muted);
+}
+
+.reminder-text {
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--muted);
+  margin: 9px 0 16px;
+}
+
+button {
+  width: 100%;
+  padding: 14px;
+  border: 0;
+  border-radius: 12px;
+  background: var(--green);
+  color: #10160c;
+  font-weight: 700;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+button:active {
+  opacity: .8;
+}
+
+footer {
+  color: var(--muted);
+  font-size: 11px;
+  line-height: 1.6;
+  margin-top: 25px;
+}
+
+@media (min-width: 600px) {
+  body {
+    max-width: 520px;
+    margin: auto;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div>
+    <div class="logo">postime<span>.</span></div>
+    <div class="subtitle">your audience, your moment.</div>
+  </div>
+  <div class="status">WORLD CLOCKS</div>
+</header>
+
+<div class="label">TIME ZONES</div>
+
+<div class="clocks">
+
+  <div class="card">
+    <div class="clock-top">
+      <div>
+        <div class="city">Ouagadougou</div>
+        <div class="country">Burkina Faso</div>
+      </div>
+      <div class="offset" id="offset-ouaga">UTC+00:00</div>
+    </div>
+    <div class="time" id="time-ouaga">--:--:--</div>
+    <div class="date" id="date-ouaga">Chargement...</div>
+  </div>
+
+  <div class="card">
+    <div class="clock-top">
+      <div>
+        <div class="city">New York</div>
+        <div class="country">United States</div>
+      </div>
+      <div class="offset" id="offset-ny">UTC-04:00</div>
+    </div>
+    <div class="time" id="time-ny">--:--:--</div>
+    <div class="date" id="date-ny">Chargement...</div>
+  </div>
+
+  <div class="card">
+    <div class="clock-top">
+      <div>
+        <div class="city">Paris</div>
+        <div class="country">France</div>
+      </div>
+      <div class="offset" id="offset-paris">UTC+02:00</div>
+    </div>
+    <div class="time" id="time-paris">--:--:--</div>
+    <div class="date" id="date-paris">Chargement...</div>
+  </div>
+
+</div>
+
+<div class="section-title">
+  <h2>Publication schedule</h2>
+</div>
+
+<div class="card">
+  <div class="day">
+    <div class="day-name">Monday</div>
+    <div class="hours">14:00–15:00 · 17:00</div>
+  </div>
+  <div class="day">
+    <div class="day-name">Tuesday</div>
+    <div class="hours">12:00–18:00</div>
+  </div>
+  <div class="day">
+    <div class="day-name">Wednesday</div>
+    <div class="hours">12:00–18:00</div>
+  </div>
+  <div class="day">
+    <div class="day-name">Thursday</div>
+    <div class="hours">12:00–18:00</div>
+  </div>
+  <div class="day">
+    <div class="day-name">Friday</div>
+    <div class="hours">12:00–18:00</div>
+  </div>
+  <div class="day">
+    <div class="day-name">Saturday</div>
+    <div class="hours muted-hours">No recommendation</div>
+  </div>
+  <div class="day">
+    <div class="day-name">Sunday</div>
+    <div class="hours">14:00–18:00</div>
+  </div>
+</div>
+
+<div class="section-title">
+  <h2>Reminders</h2>
+</div>
+
+<div class="card">
+  <div class="city">Publication notifications</div>
+  <p class="reminder-text">
+    Get notified when it is time to publish.
+    The next step will connect these reminders to Android.
+  </p>
+  <button id="reminder-button" onclick="alert('Les notifications seront activées dans une prochaine étape.')">
+    Configure reminders
+  </button>
+</div>
+
+<footer>
+  Posting-time suggestions are general guidelines, not a guarantee of engagement.
+</footer>
+
+<script>
+const cities = [
+  {
+    id: "ouaga",
+    zone: "Africa/Ouagadougou"
+  },
+  {
+    id: "ny",
+    zone: "America/New_York"
+  },
+  {
+    id: "paris",
+    zone: "Europe/Paris"
+  }
+];
+
+function updateClocks() {
+  const now = new Date();
+
+  cities.forEach(city => {
+    const time = new Intl.DateTimeFormat("fr-FR", {
+      timeZone: city.zone,
+      hour: "2-digit",
+      minute: "2-digit",
+      second: "2-digit",
+      hourCycle: "h23"
+    });
+
+    const date = new Intl.DateTimeFormat("fr-FR", {
+      timeZone: city.zone,
+      weekday: "long",
+      day: "numeric",
+      month: "long"
+    });
+
+    const offsetFormatter = new Intl.DateTimeFormat("en-US", {
+      timeZone: city.zone,
+      timeZoneName: "longOffset",
+      hour: "2-digit"
+    });
+
+    const offsetParts = offsetFormatter.formatToParts(now);
+    const offsetPart = offsetParts.find(
+      part => part.type === "timeZoneName"
+    );
+
+    let offset = offsetPart ? offsetPart.value : "GMT+0";
+    offset = offset.replace("GMT", "UTC");
+
+    document.getElementById("time-" + city.id).textContent =
+      time.format(now);
+
+    document.getElementById("date-" + city.id).textContent =
+      date.format(now);
+
+    document.getElementById("offset-" + city.id).textContent =
+      offset;
+  });
+}
+
+updateClocks();
+setInterval(updateClocks, 1000);
+</script>
+
+</body>
+</html>

@@ -1,0 +1,6 @@
+{
+  "appId": "com.postime.app",
+  "appName": "Postime",
+  "webDir": "dist",
+  "backgroundColor": "#0a0c0b"
+}

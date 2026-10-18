@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#0a0c0b" />
+  <title>Postime</title>
+</head>
+<body>
+  <div class="app">
+    <header class="topbar">
+      <h1 id="screen-title">Horloges</h1>
+      <span class="brand">Postime</span>
+    </header>
+
+    <main>
+      <!-- Écran 1 — Accueil -->
+      <section id="screen-home" class="screen active" data-title="Horloges">
+        <div id="home-clocks" class="stack"></div>
+        <div class="row-actions">
+          <button class="btn ghost" data-go="converter">Convertir une heure</button>
+          <button class="btn primary" data-go="planning">Voir le planning</button>
+        </div>
+      </section>
+
+      <!-- Écran 2 — Convertisseur -->
+      <section id="screen-converter" class="screen" data-title="Convertisseur">
+        <div class="card slider-card">
+          <div class="slider-head">
+            <span class="muted">Décalage simulé</span>
+            <strong id="conv-label">Heure actuelle</strong>
+          </div>
+          <input id="conv-slider" type="range" min="-48" max="48" step="1" value="0" aria-label="Décalage en heures" />
+          <div class="slider-scale"><span>−12 h</span><span>0</span><span>+12 h</span></div>
+          <div class="row-actions tight">
+            <button id="conv-minus" class="btn ghost small">−1 h</button>
+            <button id="conv-reset" class="btn primary small">Maintenant</button>
+            <button id="conv-plus" class="btn ghost small">+1 h</button>
+          </div>
+        </div>
+        <div id="conv-clocks" class="stack"></div>
+        <p class="note">Le convertisseur ne modifie jamais l'heure de ton téléphone : il change seulement l'affichage dans Postime.</p>
+      </section>
+
+      <!-- Écran 3 — Planning -->
+      <section id="screen-planning" class="screen" data-title="Planning">
+        <div class="card info">
+          <p><strong>Créneaux suggérés</strong> — référence : New York, <span id="plan-date"></span>.</p>
+          <p class="muted">Ce sont des suggestions générales, pas le résultat d'une analyse de ton audience. Les meilleurs horaires dépendent des pays et des moments d'activité de tes abonnés.</p>
+        </div>
+        <div id="plan-list" class="stack"></div>
+      </section>
+
+      <!-- Écran 4 — Rappels -->
+      <section id="screen-reminders" class="screen" data-title="Rappels">
+        <div id="rem-list" class="stack"></div>
+        <p class="note">Les rappels utilisent l'heure de ton téléphone et se répètent chaque semaine, même quand Postime est fermée.</p>
+        <button id="rem-add" class="fab" aria-label="Ajouter un rappel">+</button>
+      </section>
+
+      <!-- Écran 5 — Paramètres -->
+      <section id="screen-settings" class="screen" data-title="Paramètres">
+        <div class="card list">
+          <label class="setting">
+            <span><strong>Format 24 heures</strong><small>Désactive pour afficher AM / PM</small></span>
+            <input id="set-h24" type="checkbox" class="switch" />
+          </label>
+          <label class="setting">
+            <span><strong>Afficher les secondes</strong><small>Sur l'écran d'accueil</small></span>
+            <input id="set-seconds" type="checkbox" class="switch" />
+          </label>
+        </div>
+
+        <div class="card list">
+          <div class="setting stacked">
+            <span><strong>Notifications</strong><small>Teste que ton téléphone reçoit bien les rappels</small></span>
+            <div class="row-actions tight">
+              <button id="btn-test" class="btn primary small">Notification test (3 s)</button>
+              <button id="btn-exact" class="btn ghost small">Autoriser les alarmes exactes</button>
+            </div>
+          </div>
+          <div class="setting stacked">
+            <span><strong>Si les rappels n'arrivent pas</strong>
+            <small>Sur Samsung : Paramètres → Applications → Postime → Batterie → « Sans restriction ». Vérifie aussi que les notifications de Postime sont autorisées.</small></span>
+          </div>
+        </div>
+
+        <div class="card list">
+          <div class="setting stacked">
+            <span><strong>À propos</strong>
+            <small>Postime 1.0 · Ouagadougou, New York, Paris. Les rappels préviennent ; la publication reste manuelle.</small></span>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <nav class="tabbar" aria-label="Navigation">
+      <button class="tab active" data-screen="home">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        <span>Horloges</span>
+      </button>
+      <button class="tab" data-screen="converter">
+        <svg viewBox="0 0 24 24"><path d="M8 3 4 7l4 4"/><path d="M4 7h16"/><path d="m16 21 4-4-4-4"/><path d="M20 17H4"/></svg>
+        <span>Convertir</span>
+      </button>
+      <button class="tab" data-screen="planning">
+        <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+        <span>Planning</span>
+      </button>
+      <button class="tab" data-screen="reminders">
+        <svg viewBox="0 0 24 24"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg>
+        <span>Rappels</span>
+      </button>
+      <button class="tab" data-screen="settings">
+        <svg viewBox="0 0 24 24"><path d="M4 21v-7M4 10V3M12 21v-9M12 8V3M20 21v-5M20 12V3M1 14h6M9 8h6M17 16h6"/></svg>
+        <span>Réglages</span>
+      </button>
+    </nav>
+  </div>
+
+  <!-- Fenêtre d'édition d'un rappel -->
+  <div id="sheet" class="sheet" hidden>
+    <div class="sheet-backdrop" data-close></div>
+    <div class="sheet-panel" role="dialog" aria-modal="true" aria-labelledby="sheet-title">
+      <h2 id="sheet-title">Nouveau rappel</h2>
+      <label class="field">
+        <span>Nom (facultatif)</span>
+        <input id="r-label" type="text" maxlength="40" placeholder="Publication du soir" />
+      </label>
+      <label class="field">
+        <span>Heure du rappel</span>
+        <input id="r-time" type="time" value="18:30" />
+      </label>
+      <div class="field">
+        <span>Jours</span>
+        <div id="r-days" class="chips"></div>
+      </div>
+      <div class="row-actions">
+        <button id="r-delete" class="btn danger" hidden>Supprimer</button>
+        <button class="btn ghost" data-close>Annuler</button>
+        <button id="r-save" class="btn primary">Enregistrer</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="toast" class="toast" hidden></div>
+
+  <script type="module" src="/src.js"></script>
+</body>
+</html>

@@ -1,5 +1,4 @@
 import './style.css';
-import './heatmap.js';
 import { Capacitor } from '@capacitor/core';
 import { LocalNotifications } from '@capacitor/local-notifications';
 
